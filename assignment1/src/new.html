@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang = "en-us">
+    <head>
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width,initial-scale = 1.0">
+        <title>PROCOMS</title>
+        <link rel = "stylesheet" href = "../static/new.css" type = "text/css">
+    </head>
+
+    <body id = "body" >
+
+        <main id = "main">
+
+        <header class = "row ">
+            <div class = "col-10 title">
+                <h3>Programme: M.Sc Information Technology</h3>   
+            </div>
+             <!--Hamburger Menu -->
+            <div class = "col-2"> 
+                <div class = "nav">
+                    <label id = "label" for = "toggle">&#9776;</label>
+                    <input type = "checkbox" id = "toggle">
+                    <div class = "hlinks">
+                       <a href="#">Account</a>
+                       <a href="#">Settings</a>
+                       <a id = "logout" href="#">Logout</a>
+                    </div>
+                </div>     
+            </div>
+
+         </header>
+                    
+        <div class = "row user">
+            <div class = "col-6">
+                <h4>User: Nashawn Griffith  </h4>
+            </div>
+
+            <div class = "col-6">
+                <h4>Role: Administrator</h4>
+            </div>
+        </div>
+
+        <div class = "row user">
+            <div class = "col-12">
+                <h4>New Student</h4>
+            </div>
+        </div>
+
+
+        <section class = "row">
+           <div class = "col-12">
+             <form id = "form" action = "#" method = "POST" onsubmit = "" autocomplete = "off">
+              <h5>All fields required</h5>
+
+              <label>Student ID:</label>
+              <input id = "sid" type = "text" name = "student_id"> &nbsp;
+              <span class = "result" id = "id"></span>
+              <br><br>
+
+              <label>Firstname:</label>
+              <input id = "fname" type = "text" name = "firstName"> &nbsp;
+              <span class = "result" id = "firstName"></span>
+              <br><br>
+
+              <label>Lastname:</label>
+              <input id = "lname" type = "text" name = "lastName">&nbsp; 
+              <span class = "result" id = "lastName"></span>
+              <br><br>
+
+              <label>Email:</label>
+              <input id = "eMail" type = "email" name = "student_email"> &nbsp;
+              <span class = "result" id = "email"></span>
+              <br><br>
+
+              <label>Address:</label>
+              <input id = "Address" class = "add" type = "text" name = "student_id">&nbsp;
+              <span class = "result" id = "address"></span> 
+              <br><br>
+
+              <button id = "add" class = "btn" type = "submit" name = "add" value = "add">Add</button> &nbsp; &nbsp;
+
+              <button class= "btn" type = "submit" name = "cancel" value = "cancel">Cancel</button>
+
+            </form>
+
+           </div>
+        </section>
+        </main>
+
+        <script src = "../scripts/new.js"></script>
+
+    </body>
+</html>

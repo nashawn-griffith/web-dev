@@ -1,0 +1,92 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color:#808080;
+}
+
+#main{
+    margin:auto;
+    width:35%;
+    border:2px solid black;
+    padding: 1% 5% 3%;
+    background-color: #ADD8E6;
+    /*height:500px;*/
+}
+
+.row::after{
+    content: " ";
+    clear: both;
+    display:table;
+}
+
+[class *= "col-"]
+{
+    float:left;
+    padding:15px;
+    width:100%;
+}
+
+/*For desktop devices */
+@media only screen and (min-width:768px)
+{
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+}
+
+button{
+    /*text-align:center;
+    font-size:150%;
+    color:green;
+    position:relative;
+    left:15%;*/
+
+    background-color: #808080;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    position:relative;
+    left:15%;
+}
+
+.x{
+    height:70%;
+}
+
+#status{
+    color:red;
+    font-size:125%;
+    padding:3%;
+    font-style: italic;
+    position:relative;
+    left:4%;
+}
+
+#forgot
+{
+    position:relative;
+    left:15%;
+}
+
+.label
+{
+    font-size:150%;
+    color: #FFFAFA;
+}
+
