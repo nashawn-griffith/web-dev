@@ -8,7 +8,7 @@ var email = document.getElementById('eMail');
 var address = document.getElementById('Address');
 var addButton = document.getElementById('add');
 var logout = document.getElementById('logout');
-
+var p = document.getElementById('shot');
 
 //add event listeners
 studentId.addEventListener('blur', checkId);
@@ -35,6 +35,7 @@ function checkId(event){
     
     //get element to display result
     let idResult = document.getElementById('id');
+    
     //get id entered
     let id = event.target.value;
 
