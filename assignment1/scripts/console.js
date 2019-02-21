@@ -8,7 +8,8 @@ var r = document.getElementById('userRole');
 
 //console.log(h);
 
-var a = JSON.parse(sessionStorage["session"]);
+//var a = JSON.parse(sessionStorage["session"]);
+var a = JSON.parse(sessionStorage.getItem("session"));
 console.log(a[0].email);
 
 

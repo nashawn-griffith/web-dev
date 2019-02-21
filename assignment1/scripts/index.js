@@ -1,6 +1,7 @@
 //get form element
 const form = document.getElementById('form');
-var studentArray = new Array();
+var studentArray = new Array(); /*change to users*/
+var student = new Array();
 var sessionArray = new Array();
 sessionStorage.setItem("session", JSON.stringify(sessionArray));
 
@@ -8,6 +9,24 @@ sessionStorage.setItem("session", JSON.stringify(sessionArray));
 var r = document.getElementById('userRole');
 console.log(h);
 console.log(r);*/
+
+//localStorage.setItem("student", JSON.stringify(student));
+
+//populate temporary student storage 
+
+/*info = {
+   ID: "414333650",
+   fname :"John",
+   lname: "Doe",
+   email: "d@gmail.com",
+   address: "St.Phillips",
+   year: "2018"
+}
+
+var s = JSON.parse(localStorage.getItem('student'));
+s.push(info);
+localStorage.setItem('student', JSON.stringify(s));*/
+
 
 
 
