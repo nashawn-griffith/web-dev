@@ -1,27 +1,20 @@
 /*validate for console.html*/
 
 const logout = document.getElementById('logout');
-logout.addEventListener('click', redirect);
+logout.addEventListener('click', logOut);
 
-var h = document.getElementById('userHeader');
-var r = document.getElementById('userRole');
+var header = document.getElementById('userHeader');
+var role = document.getElementById('userRole');
 
-//console.log(h);
+/*get and display user session information*/
+var session = JSON.parse(sessionStorage.getItem("session"));
 
-//var a = JSON.parse(sessionStorage["session"]);
-var a = JSON.parse(sessionStorage.getItem("session"));
-console.log(a[0].email);
+header.innerHTML = "User: " + session.name;
+role.innerHTML = "Role: " + session.role;
 
-
-h.innerHTML = "User " + a[0].email;
-
-r.innerHTML = "Role " + a[0].password;
-
-
-
-
-function redirect(event)
+// logOut
+function logOut()
 {
-    console.log(document.getElementById('userHeader').nodeType);
+     sessionStorage.setItem("session", JSON.stringify({}));
     window.location.href = "index.html";
 }

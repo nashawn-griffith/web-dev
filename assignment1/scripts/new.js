@@ -1,14 +1,26 @@
 /*validation for new.html*/
 
 /*get form fields*/
+var form = document.getElementById('form');
 var studentId = document.getElementById('sid');
 var firstName = document.getElementById('fname');
 var lastName = document.getElementById('lname');
 var email = document.getElementById('eMail');
 var address = document.getElementById('Address');
-var addButton = document.getElementById('add');
+//var addButton = document.getElementById('add');
 var logout = document.getElementById('logout');
-var p = document.getElementById('shot');
+var year = document.getElementById('year');
+
+const header = document.getElementById("userHeader");
+const role = document.getElementById("userRole");
+
+/*get and display user session information*/
+var session = JSON.parse(sessionStorage.getItem("session"));
+header.innerHTML = "User: " + session.name;
+role.innerHTML = "Role: " + session.role;
+
+//console.log(year.options[year.selectedIndex].value);
+//var p = document.getElementById('shot');
 
 //add event listeners
 studentId.addEventListener('blur', checkId);
@@ -16,13 +28,23 @@ firstName.addEventListener('blur', checkFirstName);
 lastName.addEventListener('blur', checkLastName);
 email.addEventListener('blur', checkEmail);
 address.addEventListener('blur', checkAddress);
-addButton.addEventListener('click', newStudent);
-logout.addEventListener('click', redirect);
+//addButton.addEventListener('click', validateStudent);
+form.addEventListener('submit', validateStudent);
+logout.addEventListener('click', logOut);
+
+//variables for form input
+var id, name, lname, email, address;
 
 
+//variables to store truth values of fields
+var id_bool = false;
+var fname_bool = false;
+var lname_bool = false;
+var email_bool = false;
+var add_bool = false;
 
-/*redirect */
-function redirect(event)
+/*logOut*/
+function logOut()
 {
     window.location.href = 'index.html';
 }
@@ -37,20 +59,24 @@ function checkId(event){
     let idResult = document.getElementById('id');
     
     //get id entered
-    let id = event.target.value;
+     id = event.target.value;
 
     //verify id
     if(id.length == 0)
     {
         idResult.innerHTML = ' ';
+        id_bool = false;
     }
     else if((id.length != 9) || (id.charAt(0) != '4'))
     {
          idResult.innerHTML = 'Error: invalid student id format';
+         id_bool = false;
     }
     else
     {
+        
         idResult.innerHTML = ' ';
+        id_bool = true;
     }
     
 }//checkId
@@ -61,13 +87,14 @@ function checkFirstName(event){
     //get element to display result
     let fnameResult = document.getElementById('firstName');
 
-    let name = event.target.value;
+    name = event.target.value;
     var char;
 
     //validate name
     if(name.length == 0)
     {
         fnameResult.innerHTML = ' ';
+        fname_bool = false;
         return;
     }
 
@@ -77,12 +104,15 @@ function checkFirstName(event){
 
         if((char > 64 && char <91) || (char  > 96 && char < 123))
         {
-               fnameResult.innerHTML = ' ';
+               fnameResult.innerHTML = ' ';       
         }
         else{
             fnameResult.innerHTML = 'Error: invalid name format';
+            fname_true = false;
             break;
         }
+
+        fname_bool = true;
     }
   
 }//checkFirstName
@@ -93,18 +123,19 @@ function checkLastName(event)
     //get element to display result
     let lnameResult = document.getElementById('lastName');
 
-    let name = event.target.value;
+    lname = event.target.value;
     let char;
 
-    if(name.length == 0)
+    if(lname.length == 0)
     {
         lnameResult.innerHTML = ' ';
+        lname_bool = false;
         return;
     }
 
-    for(let i = 0; i < name.length; i++)
+    for(let i = 0; i < lname.length; i++)
     {
-        char = name.charCodeAt(i);
+        char = lname.charCodeAt(i);
 
         if((char > 64 && char <91) || (char  > 96 && char < 123))
         {
@@ -112,8 +143,11 @@ function checkLastName(event)
         }
         else{
             lnameResult.innerHTML = 'Error: invalid name format';
+            lname_bool = false;
             break;
         }
+
+        lname_bool = true;
     }
 }//checkLastName
 
@@ -127,19 +161,22 @@ function checkEmail(event)
    var reEmail = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
 
    //get email entered
-   let email = event.target.value;
+   email = event.target.value;
 
    if(email.length == 0)
    {
         emailResult.innerHTML = " ";
+        email_bool = false;
         return;
    }
    else if(!email.match(reEmail)) {
        
-       emailResult.innerHTML = 'Error: invalid email format'  
+       emailResult.innerHTML = 'Error: invalid email format' 
+       email_bool = false; 
     }
     else{
        emailResult.innerHTML = " ";
+       email_bool = true;
     }
 }//checkEmail
 
@@ -150,11 +187,12 @@ function checkAddress(event)
     let addResult = document.getElementById('address');
 
     //get address entered
-    let address = event.target.value;
+    address = event.target.value;
 
     if(address.length == 0)
       {
         addResult.innerHTML = ' ';
+        add_bool = false;
         return;
       }
 
@@ -164,24 +202,69 @@ function checkAddress(event)
     for(let i = 0; i < address.length; i++)
     {
       code = address.charCodeAt(i);
-      console.log(address.length);
-
-      if((code > 47 && code < 58 ) ||(code > 64 && code < 91) || (code > 96 && code < 123) || (code == 127))
+      if((code > 47 && code < 58 ) ||(code > 64 && code < 91) || (code > 96 && code < 123) || (code == 32))
       {
            addResult.innerHTML = ' ';
       }
       else
       {
           addResult.innerHTML = 'Error: invalid address format';
+          add_bool = false;
           break;
       }
-    }   
+
+      add_bool = true;
+    }//end for
 }//checkAddress
 
-
-//new student
-function newStudent(event)
+function validateStudent(event)
 {
+    event.preventDefault();
+    
+    if(id_bool && fname_bool && lname_bool && email_bool &&add_bool)
+    {
+        var Student = {
+            id:id,
+            fname:name,
+            lname:lname,
+            email:email,
+            address:address,
+            year: year.options[year.selectedIndex].value
+        }
+    
+        //add new student
+        newStudent(Student);
+
+        //redirect to students.html
+        window.location.href = "students.html";
+    }
+    else
+    {
+        //console.log("one value is incorrect");
+    }
+}
+//new student
+function newStudent(student)
+{
+    //add student to local storage
+
+    var studentStorage = JSON.parse(localStorage.getItem("studentsInfo"));
+
+    if(!studentStorage) //local storage empty
+    {
+        studentsArray = new Array();
+        studentsArray.push(student);
+        localStorage.setItem("studentsInfo", JSON.stringify(studentsArray));
+    }
+    else
+    {
+         //get items in local storage
+         var student_temp = studentStorage;
+
+         //add new student to storage
+         student_temp.push(student);
+         localStorage.setItem("studentsInfo", JSON.stringify(student_temp));
+    }
 
 }//newStudent
 
