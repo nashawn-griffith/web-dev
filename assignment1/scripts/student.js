@@ -84,55 +84,7 @@ function loadStudent(year)
                var lname = studentStorage[index].lname;
                var email = studentStorage[index].email;
 
-               buildTable(id, fname, lname, email);
-
-                        //build table with data
-               /*var row = document.createElement('tr');
-               var tableData1 = document.createElement('td');
-               var tableData2 = document.createElement('td');
-               var tableData3 = document.createElement('td');
-               var tableData4 = document.createElement('td');
-               var tableData5 = document.createElement('td');
-               var tableData6 = document.createElement('td');
-               var anchor1 = document.createElement('a');
-               var anchor2 = document.createElement('a');
-
-               var editLink = document.createTextNode('Edit');
-               var deleteLink = document.createTextNode('Delete');
-               var id = document.createTextNode(id);
-               var firstName = document.createTextNode(fname);
-               var lastName = document.createTextNode(lname);
-               var email = document.createTextNode(email);
-
-               anchor1.appendChild(editLink);
-               anchor1.setAttribute("href", "#");
-
-               anchor2.appendChild(deleteLink);
-               anchor2.setAttribute("href", "#");
-
-               tableData1.appendChild(anchor1);
-               tableData1.setAttribute('class', 'table-item');
-               tableData2.appendChild(anchor2);
-               tableData2.setAttribute('class', 'table-item');
-
-               tableData3.appendChild(id);
-               tableData3.setAttribute('class', 'table-item');
-               tableData4.appendChild(firstName);
-               tableData4.setAttribute('class', 'table-item');
-               tableData5.appendChild(lastName);
-               tableData5.setAttribute('class', 'table-item');
-               tableData6.appendChild(email);
-               tableData6.setAttribute('class', 'table-item');
-
-               row.appendChild(tableData1);
-               row.appendChild(tableData2);
-               row.appendChild(tableData3);
-               row.appendChild(tableData4);
-               row.appendChild(tableData5);
-               row.appendChild(tableData6);
-
-               //executed last
-               table.appendChild(row);*/
+               buildTable(id, fname, lname, email);              
 
              }
       }//end for
@@ -151,54 +103,6 @@ function loadStudent(year)
                var email = studentStorage[index].email;
 
                buildTable(id,fname,lname,email);
-
-                        //build table with data
-               /*var row = document.createElement('tr');
-               var tableData1 = document.createElement('td');
-               var tableData2 = document.createElement('td');
-               var tableData3 = document.createElement('td');
-               var tableData4 = document.createElement('td');
-               var tableData5 = document.createElement('td');
-               var tableData6 = document.createElement('td');
-               var anchor1 = document.createElement('a');
-               var anchor2 = document.createElement('a');
-
-               var editLink = document.createTextNode('Edit');
-               var deleteLink = document.createTextNode('Delete');
-               var id = document.createTextNode(id);
-               var firstName = document.createTextNode(fname);
-               var lastName = document.createTextNode(lname);
-               var email = document.createTextNode(email);
-
-               anchor1.appendChild(editLink);
-               anchor1.setAttribute("href", "#");
-
-               anchor2.appendChild(deleteLink);
-               anchor2.setAttribute("href", "#");
-
-               tableData1.appendChild(anchor1);
-               tableData1.setAttribute('class', 'table-item');
-               tableData2.appendChild(anchor2);
-               tableData2.setAttribute('class', 'table-item');
-
-               tableData3.appendChild(id);
-               tableData3.setAttribute('class', 'table-item');
-               tableData4.appendChild(firstName);
-               tableData4.setAttribute('class', 'table-item');
-               tableData5.appendChild(lastName);
-               tableData5.setAttribute('class', 'table-item');
-               tableData6.appendChild(email);
-               tableData6.setAttribute('class', 'table-item');
-
-               row.appendChild(tableData1);
-               row.appendChild(tableData2);
-               row.appendChild(tableData3);
-               row.appendChild(tableData4);
-               row.appendChild(tableData5);
-               row.appendChild(tableData6);
-
-               //executed last
-               table.appendChild(row);*/
 
              }
       }//end for  
