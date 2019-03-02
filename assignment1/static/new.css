@@ -137,3 +137,9 @@ label{
     padding:5px;
 }
 
+#status
+{
+    font-size:20px;
+    color:red;
+}
+

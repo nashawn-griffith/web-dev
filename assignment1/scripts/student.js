@@ -29,18 +29,19 @@ window.onload = function ()
 
 function logOut()
 {
-   window.location.href = 'index.html';
+  //clear session storage
+  sessionStorage.setItem("session", JSON.stringify({}));
+  window.location.href = "index.html";
 }
 
-function display(event)
+function display(e)
 {
-   const year = event.target.innerHTML;
+   const year = e.target.innerHTML;
 
-   //console.log(year);
- 
    //clear console before loading other students
-   while (table.firstChild) {
-      table.removeChild(table.firstChild);
+   while(table.hasChildNodes())
+   {
+     table.removeChild(table.firstChild);
    }
 
    loadStudent(year);
@@ -52,7 +53,6 @@ function loadStudent(year)
     {
       //get items from local storage
       var studentStorage = JSON.parse(localStorage.getItem("studentsInfo"));
-      
 
       for( index = 0; index < studentStorage.length; index ++ )
       {
@@ -63,14 +63,12 @@ function loadStudent(year)
                var lname = studentStorage[index].lname;
                var email = studentStorage[index].email;
 
-               buildTable(id, fname, lname, email);
-
-                        //build table with data
-              
+               //build table with data
+               buildTable(id, fname, lname, email);    
              }
       }//end for
 
-    } //end if
+    }
     else if(year== 2017)
     {
              //get items from local storage
@@ -83,7 +81,8 @@ function loadStudent(year)
                var fname = studentStorage[index].fname;
                var lname = studentStorage[index].lname;
                var email = studentStorage[index].email;
-
+               
+               //build table with data
                buildTable(id, fname, lname, email);              
 
              }
@@ -101,7 +100,8 @@ function loadStudent(year)
                var fname = studentStorage[index].fname;
                var lname = studentStorage[index].lname;
                var email = studentStorage[index].email;
-
+               
+               //build table with data
                buildTable(id,fname,lname,email);
 
              }
@@ -110,8 +110,11 @@ function loadStudent(year)
    
 }//load student
 
+
+//build table with data
 function buildTable(id, fname, lname, email)
 {
+  /*create tags and assign attributes*/
   var row = document.createElement('tr');
   var tableData1 = document.createElement('td');
   var tableData2 = document.createElement('td');
@@ -136,18 +139,18 @@ function buildTable(id, fname, lname, email)
   anchor2.setAttribute("href", "#");
 
   tableData1.appendChild(anchor1);
-  tableData1.setAttribute('class', 'table-item');
+  tableData1.setAttribute('className', 'table-item');
   tableData2.appendChild(anchor2);
-  tableData2.setAttribute('class', 'table-item');
+  tableData2.setAttribute('className', 'table-item');
 
   tableData3.appendChild(id);
-  tableData3.setAttribute('class', 'table-item');
+  tableData3.setAttribute('className', 'table-item');
   tableData4.appendChild(firstName);
-  tableData4.setAttribute('class', 'table-item');
+  tableData4.setAttribute('className', 'table-item');
   tableData5.appendChild(lastName);
-  tableData5.setAttribute('class', 'table-item');
+  tableData5.setAttribute('className', 'table-item');
   tableData6.appendChild(email);
-  tableData6.setAttribute('class', 'table-item');
+  tableData6.setAttribute('className', 'table-item');
 
   row.appendChild(tableData1);
   row.appendChild(tableData2);

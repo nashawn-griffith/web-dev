@@ -1,8 +1,8 @@
 /*validate for console.html*/
-
 const logout = document.getElementById('logout');
 logout.addEventListener('click', logOut);
 
+/*get fields to display session information*/
 var header = document.getElementById('userHeader');
 var role = document.getElementById('userRole');
 
@@ -15,6 +15,7 @@ role.innerHTML = "Role: " + session.role;
 // logOut
 function logOut()
 {
-     sessionStorage.setItem("session", JSON.stringify({}));
+    //clear session storage
+    sessionStorage.setItem("session", JSON.stringify({}));
     window.location.href = "index.html";
 }

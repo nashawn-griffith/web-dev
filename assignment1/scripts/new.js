@@ -7,7 +7,6 @@ var firstName = document.getElementById('fname');
 var lastName = document.getElementById('lname');
 var email = document.getElementById('eMail');
 var address = document.getElementById('Address');
-//var addButton = document.getElementById('add');
 var logout = document.getElementById('logout');
 var year = document.getElementById('year');
 
@@ -19,24 +18,19 @@ var session = JSON.parse(sessionStorage.getItem("session"));
 header.innerHTML = "User: " + session.name;
 role.innerHTML = "Role: " + session.role;
 
-//console.log(year.options[year.selectedIndex].value);
-//var p = document.getElementById('shot');
-
 //add event listeners
 studentId.addEventListener('blur', checkId);
 firstName.addEventListener('blur', checkFirstName);
 lastName.addEventListener('blur', checkLastName);
 email.addEventListener('blur', checkEmail);
 address.addEventListener('blur', checkAddress);
-//addButton.addEventListener('click', validateStudent);
 form.addEventListener('submit', validateStudent);
 logout.addEventListener('click', logOut);
 
 //variables for form input
 var id, name, lname, email, address;
 
-
-//variables to store truth values of fields
+/*variables to store truth values of fields to ensure all fields contain data*/
 var id_bool = false;
 var fname_bool = false;
 var lname_bool = false;
@@ -46,20 +40,23 @@ var add_bool = false;
 /*logOut*/
 function logOut()
 {
-    window.location.href = 'index.html';
+     //clear session storage
+     sessionStorage.setItem("session", JSON.stringify({}));
+     window.location.href = "index.html";
 }
 
 
 /*validation functions*/
 
 /*id*/
-function checkId(event){
+function checkId(e){
     
     //get element to display result
     let idResult = document.getElementById('id');
     
     //get id entered
-     id = event.target.value;
+     id = e.target.value;
+     console.log(id);
 
     //verify id
     if(id.length == 0)
@@ -82,12 +79,12 @@ function checkId(event){
 }//checkId
 
 /*first name*/
-function checkFirstName(event){
+function checkFirstName(e){
 
     //get element to display result
     let fnameResult = document.getElementById('firstName');
 
-    name = event.target.value;
+    name = e.target.value;
     var char;
 
     //validate name
@@ -118,12 +115,12 @@ function checkFirstName(event){
 }//checkFirstName
 
 /*last name*/
-function checkLastName(event)
+function checkLastName(e)
 {
     //get element to display result
     let lnameResult = document.getElementById('lastName');
 
-    lname = event.target.value;
+    lname = e.target.value;
     let char;
 
     if(lname.length == 0)
@@ -152,7 +149,7 @@ function checkLastName(event)
 }//checkLastName
 
 /*Email*/
-function checkEmail(event)
+function checkEmail(e)
 {
      //get element to display result
     let emailResult = document.getElementById('email');
@@ -161,7 +158,7 @@ function checkEmail(event)
    var reEmail = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
 
    //get email entered
-   email = event.target.value;
+   email = e.target.value;
 
    if(email.length == 0)
    {
@@ -181,13 +178,13 @@ function checkEmail(event)
 }//checkEmail
 
 /*address*/
-function checkAddress(event)
+function checkAddress(e)
 {
     //get element to display result
     let addResult = document.getElementById('address');
 
     //get address entered
-    address = event.target.value;
+    address = e.target.value;
 
     if(address.length == 0)
       {
@@ -217,10 +214,11 @@ function checkAddress(event)
     }//end for
 }//checkAddress
 
-function validateStudent(event)
+function validateStudent(e)
 {
-    event.preventDefault();
-    
+    e.preventDefault();
+
+    /*check if all fields are filled. If so, add new student*/
     if(id_bool && fname_bool && lname_bool && email_bool &&add_bool)
     {
         var Student = {
@@ -240,7 +238,7 @@ function validateStudent(event)
     }
     else
     {
-        //console.log("one value is incorrect");
+        document.getElementById('status').innerHTML = "Please ensure all fields have a value";
     }
 }
 //new student
@@ -248,6 +246,7 @@ function newStudent(student)
 {
     //add student to local storage
 
+    //get items from local storage
     var studentStorage = JSON.parse(localStorage.getItem("studentsInfo"));
 
     if(!studentStorage) //local storage empty
@@ -258,12 +257,9 @@ function newStudent(student)
     }
     else
     {
-         //get items in local storage
-         var student_temp = studentStorage;
-
          //add new student to storage
-         student_temp.push(student);
-         localStorage.setItem("studentsInfo", JSON.stringify(student_temp));
+         studentStorage.push(student);
+         localStorage.setItem("studentsInfo", JSON.stringify(studentStorage));
     }
 
 }//newStudent
