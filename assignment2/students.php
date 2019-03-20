@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 
 <?php
-   //require('./viewStudents.php');
+   require_once('./viewStudents.php');
    require_once('./login.php');
 
   if(!isset($_SESSION))
   {
       session_start();
   }
+  
+  if(!isset($message))
+  {
+      //print(' m not set');
+      $message = '';
+  }
 
-  #determine if user is logged in
+  if(!isset($format))
+  {
+      $format = '';
+  }
+
+  //processStudents('2018');
+
+ #determine if user is logged in
  if(!isUserLoggedIn())
  {
    header("Location: index.php");
@@ -77,13 +90,26 @@ $time = getUserInfo('time');
                     <li class = "nav-item"><a id = "2016" href = "viewStudents.php?year=2016">2016</a></li>
                     <li class = "nav-item"><a id = "2017" class = "year" href = "viewStudents.php?year=2017">2017</a></li>
                     <li class = "nav-item"><a id = "2018" class =  "year" href = "viewStudents.php?year=2018">2018</a></li>
-                    <li class = "nav-item last"><a href = "new.php">New Student</a></li>
+                    <li class = "nav-item last"><a href = "newStudent.php">New Student</a></li>
                 </ul>    
             </div>
         </nav>
         
         <!--table to display student information-->
-        <table id = "table"> <?php print($format)  ?> </table>
+        <table id = "table"> 
+         
+        <!-- No students to display -->
+        <?php if(strlen($format) == 0):?>
+        <h4> <?php print($message) ?> </h4>
+        <?php endif;?>
+        
+        <!-- display student -->
+        <?php if(isset($format)):?>
+           <?php print($format) ?>
+        <?php else: ?>
+          <h4>&nbsp; &nbsp; <?php print('Click on a year to see the students')?> </h4>
+        <?php endif; ?>
+        </table>
         
          </main>
 

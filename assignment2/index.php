@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+
 <?php
-   require_once('./login.php');
-   
-     isUserLoggedIn();
+   if(!isset($message))
+   {
+      $message = ' ';
+   }
    
 ?>
 
@@ -11,7 +13,7 @@
        <meta charset = "utf-8">
        <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
        <title>PROCOMS</title>
-       <link rel = "stylesheet" href = "./static/index.css" type = "text/css">
+       <link rel = "stylesheet" href = "./index.css" type = "text/css">
        
     </head>
 
@@ -40,6 +42,7 @@
                    <button id = "btn" type = "submit" name = "signIn" value = "Sign In">Sign In</button>  <br><br><br>
                     
                     <p id = "status"></p>
+                    <p class = "status"><?php print($message); ?> </p>
                   
                    <a id = "forgot" href = "#forgot"> Forgot Password</a>
 
@@ -48,7 +51,7 @@
         </section>
     </main>
     
-   <script src = "index.js" type = "text/javascript"></script>
+   <!--<script src = "index.js" type = "text/javascript"></script>-->
 
 </body>
 </html>

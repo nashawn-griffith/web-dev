@@ -1,12 +1,19 @@
 <?php
 
+#set default time zone
+//date_default_timezone_set("America/New_York");
+
+
+
 #start session
 session_start();
 
 function loginUser(array $data)
 {
     #get date
-    $date = date("d/m/y h:m:s");
+    $fdate = new DateTime();
+    $fdate->setTimezone(new DateTimeZone("America/New_York"));
+    $date = $fdate->format('d/m/y h:m:s');
 
     #get user data
     $session_user = array(
@@ -22,12 +29,12 @@ function loginUser(array $data)
     $_SESSION['user'] = $session_user;
 
     #store user data in session variables
-    $_SESSION["email"] = $data["email"];
+    /*$_SESSION["email"] = $data["email"];
     $_SESSION['password'] = $data['password'];
     $_SESSION['firstName'] = $data['firstName'];
     $_SESSION['lastName'] = $data['lastName'];
     $_SESSION['role'] = $data['role'];
-    $_SESSION['time'] = $date;
+    $_SESSION['time'] = $date;*/
 
     #redirect to console.php
     header("Location: console.php");
@@ -38,14 +45,13 @@ function isUserLoggedIn()
 {
     if(isset($_SESSION['user']['email']))
     {
-        print_r($_SESSION['user']['email']);
         return true;
     }
     else
     {
         return false;
     }
-}
+}//isUserLoggedIn
 
 function getUserInfo(string $field)
 {
@@ -78,5 +84,8 @@ function getUserInfo(string $field)
     {
         return $_SESSION['user']['time'];
     }
-}
+
+} //getUserInfo
+
+
 ?>

@@ -23,16 +23,16 @@
           $passwordVerdict = isPasswordValid($userInfo['password']);
       }
 
-      if($emailVerdict == true && $passwordVerdict == true) /*email and password formatted correctly*/
+       /*email and password formatted correctly*/
+      if($emailVerdict == true && $passwordVerdict == true) 
       {   
-          
             $valid = areCredentialsValid($userInfo);
             
             #credentials are valid. Login user
             if($valid != true)
             { 
-                print('Valid');
                 $message = 'Invalid User';
+                require_once('index.php');
             }
             else
             {
@@ -43,14 +43,17 @@
       else if($emailVerdict == true && $passwordVerdict == false)
       {   
           $message = 'Password must be @least 8 characters long, contains only alphanumeric characters with at least one number.';
+          require_once('index.php');
       }
       else if($emailVerdict == false && $passwordVerdict == true)
       {
           $message = 'Incorrect email format';
+          require_once('index.php');
       }
       else if($emailVerdict == false && $passwordVerdict == false)
       {
           $message = 'Both email and password are in the incorrect format';
+          require_once('index.php');    
       }
   }
 
@@ -97,6 +100,8 @@
             }
 
         }//end while
+
+        fclose($file);
         
         #check number of times user was found
         if($count == 1)

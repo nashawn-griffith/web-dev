@@ -30,11 +30,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     else if(isset($_POST['delete'])) /*delete button clicked*/
     {
         #get student id
-        (int)$id = $_POST['student_id'];
+        $id = $_POST['student_id'];
+        
       
         #delete student
         deleteStudent($id);
-
+        
         header('Location: students.php');
 
     }
@@ -50,8 +51,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 /*function definitions given below*/
 
-function deleteStudent(int $id)
+function deleteStudent(string $id)
 {
+   
     $file = fopen('students.csv', 'r');
 
     $record;

@@ -101,6 +101,7 @@ $time = getUserInfo('time');
                <td class = "table-header"> Course ID</td>
                <td class = "table-header"> Course Title </td>
             </tr> 
+            <tr> </tr>
             <?php foreach($courses as $index => $course):?>    
             <tr>
               <td class = "table-item"> <a href ="#"> Edit </td>
@@ -108,8 +109,7 @@ $time = getUserInfo('time');
               <td class = "table-item"> <?php print($course[0]) ?> </td>
               <td class = "table-item"> <?php print($course[1]) ?> </td>
             </tr>
-            <?php endforeach ?>
-             
+            <?php endforeach ?>    
         </table>
         
          </main>

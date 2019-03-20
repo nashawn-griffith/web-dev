@@ -27,12 +27,15 @@ require_once('./validate.php');
 
         newStudent($student);
 
+        //require_once('students.php');
+
         header('Location: students.php');
 
        
     }
     else
     {
+        /*Errors with form input. Display appropriate messages*/
         if($id_v == false)
         {
             $idMessage = 'Error: invalid student id format';
@@ -78,16 +81,36 @@ require_once('./validate.php');
             $aMessage = '';
         }
     
-        require_once('./new.php');  
+        require_once('./newStudent.php');  
 
     }//end else
-
-   
-    
-    
+  
  }
 
+ #generate new student ID
+ function generateId()
+ {
+     #open csv file & get record from the file
+     $file = fopen('students.csv', 'r');
+     while(!feof($file))
+     {
+         $record = fgetcsv($file, 'r');
+         
+         $gid[] = $record[0];
+     }
+     fclose($file);
 
+     //print_r($gid);
+      return $gid[count($gid) - 2] + 1;
+     
+    
+     //print($id);
+     
+     //return $id;
+ }
+
+ 
+ /*handle Update & Edit links*/
  if(isset($_GET['id']) && isset($_GET['action']))
  {
      #get action. Edit /Delete
@@ -106,6 +129,8 @@ require_once('./validate.php');
               break;
          }
      }
+
+     fclose($file);
 
      #action = edit
      if($action == "edit")
@@ -129,7 +154,7 @@ require_once('./validate.php');
      $address = $record[4];
      $year = $record[5];
 
-     require_once('./new.php');
+     require_once('./newStudent.php');
  }
 
  function newStudent(array $data)
