@@ -12,11 +12,9 @@
  /*function definitions below*/
  function processStudents(string $year)
  {
-
     /*read csv file & retrun json format*/
     $json= getStudents($year);
-
-
+ 
     /*read json format & view students in HTML format*/
     $format = viewStudents($json);
 
@@ -37,13 +35,13 @@
     while(!feof($file))
     {
         $record = fgetcsv($file, ',');
-
+        
         if($record[5] == $year) /*year found. Add to students array*/
         {
             $students[] = $record;
         }          
     }
-        
+  
     #convert to json format
     $json_students = json_encode($students);
 
@@ -54,6 +52,7 @@
 
  function viewStudents(string $data)
  {
+     
       #decode student json data
       $students = json_decode($data);
 
@@ -74,6 +73,7 @@
                  </tr>';  
       }
 
+  
       return $str;
 
  } //viewStudents

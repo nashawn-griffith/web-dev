@@ -3,8 +3,6 @@
 #set default time zone
 //date_default_timezone_set("America/New_York");
 
-
-
 #start session
 session_start();
 
@@ -27,14 +25,6 @@ function loginUser(array $data)
 
     #store user data in session variable
     $_SESSION['user'] = $session_user;
-
-    #store user data in session variables
-    /*$_SESSION["email"] = $data["email"];
-    $_SESSION['password'] = $data['password'];
-    $_SESSION['firstName'] = $data['firstName'];
-    $_SESSION['lastName'] = $data['lastName'];
-    $_SESSION['role'] = $data['role'];
-    $_SESSION['time'] = $date;*/
 
     #redirect to console.php
     header("Location: console.php");

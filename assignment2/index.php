@@ -41,8 +41,8 @@
 
                    <button id = "btn" type = "submit" name = "signIn" value = "Sign In">Sign In</button>  <br><br><br>
                     
-                    <p id = "status"></p>
-                    <p class = "status"><?php print($message); ?> </p>
+                    <!--<p id = "status"></p>-->
+                    <p id= "status"><?php print($message); ?> </p>
                   
                    <a id = "forgot" href = "#forgot"> Forgot Password</a>
 

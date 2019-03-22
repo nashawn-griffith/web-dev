@@ -95,18 +95,20 @@ require_once('./validate.php');
      while(!feof($file))
      {
          $record = fgetcsv($file, 'r');
-         
+
          $gid[] = $record[0];
      }
      fclose($file);
 
-     //print_r($gid);
-      return $gid[count($gid) - 2] + 1;
+   
+     if($gid[0]== null)
+     {
+         return '400000000';
+     }
      
-    
-     //print($id);
-     
-     //return $id;
+
+     return $gid[count($gid) - 2] + 1;
+         
  }
 
  
@@ -157,6 +159,7 @@ require_once('./validate.php');
      require_once('./newStudent.php');
  }
 
+ #new Student
  function newStudent(array $data)
  {
        #open csv file & get record from the file

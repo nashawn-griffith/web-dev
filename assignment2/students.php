@@ -11,16 +11,14 @@
   
   if(!isset($message))
   {
-      //print(' m not set');
       $message = '';
   }
 
   if(!isset($format))
   {
-      $format = '';
+      $format = '<h4>Click on a year to view students </h4>';
   }
 
-  //processStudents('2018');
 
  #determine if user is logged in
  if(!isUserLoggedIn())
@@ -42,7 +40,7 @@ $time = getUserInfo('time');
         <meta charset = "utf-8">
         <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
         <title>PROCOMS</title>
-        <link rel = "stylesheet" href = "./static/student.css" type = "text/css">
+        <link rel = "stylesheet" href = "student.css" type = "text/css">
     </head>
 
     <body>
@@ -104,10 +102,10 @@ $time = getUserInfo('time');
         <?php endif;?>
         
         <!-- display student -->
-        <?php if(isset($format)):?>
+        <?php if(strlen($format) > 0):?>
            <?php print($format) ?>
         <?php else: ?>
-          <h4>&nbsp; &nbsp; <?php print('Click on a year to see the students')?> </h4>
+           <?php print($format)?>
         <?php endif; ?>
         </table>
         

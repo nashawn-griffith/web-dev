@@ -134,7 +134,6 @@ if((!isset($idMessage)) && (!isset($fMessage)) && (!isset($lMessage)) && (!isset
               <?php else:?>
               <input id = "fname" type = "text" name = "firstName" value = "<?php print($fname) ?>" > &nbsp;
               <?php endif; ?>
-
               <span class = "result" id = "firstName"><?php print($fMessage)?></span>
              
               <br><br>
@@ -150,7 +149,7 @@ if((!isset($idMessage)) && (!isset($fMessage)) && (!isset($lMessage)) && (!isset
               <input id = "lname" type = "text" name = "lastName" value = "<?php print($lname)?>" disabled>&nbsp;
 
               <?php else: ?>
-              <input id = "lastName" type = "text" name = "lastName" value = "<?php print($lname)?>" > &nbsp;
+              <input id = "lname" type = "text" name = "lastName" value = "<?php print($lname)?>" > &nbsp;
                <?php endif; ?>
 
               <span class = "result" id = "lastName"> <?php print($lMessage)?></span>
@@ -170,7 +169,7 @@ if((!isset($idMessage)) && (!isset($fMessage)) && (!isset($lMessage)) && (!isset
               <?php else:?> 
               <input id = "eMail" type = "email" name = "student_email" value = "<?php print($email)?>"> &nbsp;
               <?php endif;?>
-
+              
               <span class = "result" id = "email"> <?php print($eMessage)?></span>
             
               <br><br>
@@ -251,13 +250,13 @@ if((!isset($idMessage)) && (!isset($fMessage)) && (!isset($lMessage)) && (!isset
               <button class= "btn" type = "submit" name = "cancel" value = "cancel"><a style = "text-decoration: none; color:white;" href = "console.php" >Cancel</a></button>
                
              <?php endif; ?>
-
+             
             </form>
 
            </div>
         </section>
         </main>
-
+        <!--<script src = "newStudent.js" type = "text/javascript"></script>-->
 
     </body>
 </html>
