@@ -12,7 +12,6 @@ require_once('./validate.php');
     $address = $_POST['address'];
     $year = $_POST['year'];
 
-   
     #validate form data
     $id_v = isIdValid($id);
     $fname_v = isNameValid($fname);
@@ -27,11 +26,7 @@ require_once('./validate.php');
 
         newStudent($student);
 
-        //require_once('students.php');
-
-        header('Location: students.php');
-
-       
+        header('Location: students.php');   
     }
     else
     {
@@ -88,26 +83,34 @@ require_once('./validate.php');
  }
 
  #generate new student ID
- function generateId()
+ function generateId($y)
  {
-     #open csv file & get record from the file
+     $gid = array();
+
+     #get student year to generate ID
+     $sub = substr($y, 2, 2);
+     
+     #open csv file & get record from the file for the year
      $file = fopen('students.csv', 'r');
      while(!feof($file))
      {
          $record = fgetcsv($file, 'r');
 
-         $gid[] = $record[0];
+         if(substr($record[0], 1, 2) == $sub)
+         {
+              $gid[] = $record[0];
+         }
      }
      fclose($file);
 
    
-     if($gid[0]== null)
+     if(empty($gid))
      {
-         return '400000000';
+         $id = '4'.$sub.'000000';
+         return $id;
      }
-     
 
-     return $gid[count($gid) - 2] + 1;
+     return $gid[count($gid) - 1] + 1;
          
  }
 
@@ -176,11 +179,19 @@ require_once('./validate.php');
    
        fclose($file);
 
+       #generate student ID
+       $year = $data[5];
+       $id = generateId($year);
+      
+       #set student id
+       $data[0] = $id;
+
+       #add new student to existing list of students
        $students[] = $data;
-   
+
        #sort the array
-       asort($students);
-   
+      asort($students);
+
        $file = fopen('students.csv', 'w');
    
        foreach($students as $s)
@@ -190,8 +201,6 @@ require_once('./validate.php');
        }
    
        fclose($file);
-
-        //redirect to students
  }
   
  

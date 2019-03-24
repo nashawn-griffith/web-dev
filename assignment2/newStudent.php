@@ -10,8 +10,6 @@ if(!isset($_SESSION))
     session_start();
 }
 
-
-
 #determine if user is logged in
 if(!isUserLoggedIn())
 {
@@ -33,10 +31,6 @@ if((!isset($idMessage)) && (!isset($fMessage)) && (!isset($lMessage)) && (!isset
       //$id = $fname = $lname = $email = $address = '';
       $fname = $lname = $email = $address = '';
   }
-
-   $gid = generateId();
-
-   print('gen id: '. $gid);
 
     if(!isset($edit) && !isset($del))
     {
@@ -99,22 +93,21 @@ if((!isset($idMessage)) && (!isset($fMessage)) && (!isset($lMessage)) && (!isset
              <form id = "form" action = "update.php"  method = "POST" autocomplete = "off">
             <?php endif; ?>
 
-              <h5>All fields required</h5>
-
-              <label>Student ID:</label>
-               
+              <h3>All fields required</h3>               
               <!--Edit link clicked -->
                <?php if($edit == true):?>
+               <label>Student ID:</label>
                <input id = "sid" type = "text" name = "student_id" value = "<?php print($id) ?>"  disabled > &nbsp;
                <input id = "sid" type = "hidden" name = "student_id" value = "<?php print($id) ?>"> &nbsp;
 
                <!-- Delete Link clicked -->
-               <?php elseif($del == true):?> 
+               <?php elseif($del == true):?>
+               <label>Student ID:</label>
                <input id = "sid" type = "text" name = "student_id" value = "<?php print( $id) ?>" disabled > &nbsp;
                <input id = "sid" type = "hidden" name = "student_id" value = "<?php print($id) ?>" >
 
                <?php else: ?>
-               <input id = "sid" type = "text" name = "student_id" value = "<?php print($gid)?>"> &nbsp;
+               <input type = "hidden" name = "student_id" value = "400000000"> &nbsp;
                <?php endif; ?>
 
                <span class = "result" id = "id"> <?php print($idMessage)?></span>
@@ -240,7 +233,7 @@ if((!isset($idMessage)) && (!isset($fMessage)) && (!isset($lMessage)) && (!isset
 
               <!-- Delete Link clicked. Display appropriate buttons -->
               <?php elseif($del == true):?>
-              <button id = "add" class = "btn" type = "submit" name = "add" value = ""> <a style = "text-decoration: none; color:white;" href = "" >Please confirm that you want to delete this record</a></button> <br>
+               <h4 style = "color:red;"> Please confirm that you want to delete this record </h4> <br>
               <button id = "add" class = "btn" type = "submit" name = "delete" value = "delete">Delete</button> &nbsp; &nbsp;
               <button class= "btn" type = "submit" name = "cancel" value = "cancel"><a style = "text-decoration: none; color:white;" href = "students.php" >Cancel</a></button>
 
@@ -248,7 +241,6 @@ if((!isset($idMessage)) && (!isset($fMessage)) && (!isset($lMessage)) && (!isset
               <?php else: ?>
               <button id = "add" class = "btn" type = "submit" name = "add" value = "add">Add</button> &nbsp; &nbsp;
               <button class= "btn" type = "submit" name = "cancel" value = "cancel"><a style = "text-decoration: none; color:white;" href = "console.php" >Cancel</a></button>
-               
              <?php endif; ?>
              
             </form>
@@ -256,7 +248,7 @@ if((!isset($idMessage)) && (!isset($fMessage)) && (!isset($lMessage)) && (!isset
            </div>
         </section>
         </main>
-        <!--<script src = "newStudent.js" type = "text/javascript"></script>-->
+        <script src = "newStudent.js" type = "text/javascript"></script>
 
     </body>
 </html>

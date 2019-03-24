@@ -68,7 +68,7 @@
         $password = $user_info['password'];
 
         #open csv file
-        $file = fopen('contacts.csv', 'r');
+        $file = fopen('users.csv', 'r');
         
         #loop through the file
         while(!feof($file))

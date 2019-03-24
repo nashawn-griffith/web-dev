@@ -51,7 +51,7 @@
         </section>
     </main>
     
-   <!--<script src = "index.js" type = "text/javascript"></script>-->
+   <script src = "index.js" type = "text/javascript"></script>
 
 </body>
 </html>
