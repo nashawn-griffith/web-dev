@@ -28,7 +28,7 @@
  {   
      #array to store students
      $students = array();
-
+	 
      #open csv file & read data
      $file = fopen('students.csv', 'r');
 
