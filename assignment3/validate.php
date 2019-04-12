@@ -113,6 +113,76 @@
            
     }//isPasswordValid
 
+    public function isIdValid(string $id)
+    {
+         if(strlen($id) == 0)
+         {
+             return false;
+         }
+
+        if(($id[0] == 4 ) && (strlen($id) == 9))
+        {
+            return true;
+        }
+
+       
+    }//isIdValid
+
+
+    public function isNameValid(string $name)
+    {
+        //print(strlen($name));
+
+        if(strlen($name) == 0)
+        {
+            return false;
+        }
+
+        for($index = 0; $index < strlen($name); $index++)
+        {
+            $char = ord($name[$index]);
+
+            if(($char > 64 && $char < 91) || ($char > 96 && $char < 123))
+            {   
+                continue;
+            }
+            else
+            {
+                return false;
+               
+            }
+        }
+
+        return true;
+
+    }//isNameValid
+
+
+    public function isAddressValid(string $addr)
+    {
+        if(strlen($addr) == 0)
+        {
+            return false;
+        }
+
+        for($index = 0; $index < strlen($addr); $index++)
+        {
+           $char = ord($addr[$index]);
+
+          if(($char > 47 && $char < 58) || ($char > 64 && $char < 91) || ($char > 96 && $char < 123) || ($char == 32))
+          {
+                continue;
+          }
+          else
+          {
+              return false;
+          }   
+        }
+
+        return true;
+    
+    }//isAddressValid
+
   
 
 
@@ -122,10 +192,6 @@
 
 
 }//validate
-
-
-
-
 
 
 /*LOGIC BELOW*/

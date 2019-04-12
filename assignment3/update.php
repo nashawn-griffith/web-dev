@@ -38,14 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         
         header('Location: students.php');
 
-    }
-    
-
-       
-    
-
-  
-    
+    }  
 
 }
 
@@ -54,93 +47,39 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 function deleteStudent(string $id)
 {
    
-    $file = fopen('students.csv', 'r');
+    require_once('./config.php');
 
-    $record;
+    $connection = mysqli_connect(HOST, USER, PASSWORD, DATABASE);
 
-    while(!feof($file))
-    {
-        $record = fgetcsv($file, ',');
+    $sql = "DELETE FROM students WHERE id = '$id' ";
 
-        if($record[0] == $id)
-        {
-            continue;
-        }
-
-        $students[] = $record;
-    }
-
-    fclose($file);
-
-    #sort the array
-    asort($students);
-
-    $file = fopen('students.csv', 'w');
-
-    foreach($students as $s)
-    {
-        
-        fputcsv($file, $s);
-    }
-
-    fclose($file);
+    $result = mysqli_query($connection, $sql);
+   
+    mysqli_close($connection);
+  
+   
 }
 
 function updateStudent(array $data)
-{
-    #open file
-    $file = fopen('students.csv', 'r');
+{ 
+    require_once('./config.php');
 
-    #array to store selected student
-    $student = array();
-    
-    #array to store remaining students
-    $students = array();
+   $connection = mysqli_connect(HOST, USER, PASSWORD, DATABASE);
+ 
+   $id = $data['id'];
+   $fname = $data['fname'];
+   $lname = $data['lname'];
+   $email = $data['email'];
+   $address = $data['address'];
+   $year = $data['year'];
 
-     
-    while(!feof($file))
-    {
-        $result = fgetcsv($file, ',');
-        
+   $sql = "UPDATE students SET firstname = '$fname', lastname = '$lname', 
+        email = '$email', address = '$address', year = '$year' WHERE id = '$id' ";
 
-         if($result[0] == $data['id']) /*student found. Add to array*/
-        {
-               $student[] = $result;
-               continue;
-        }
-          
-          /*else statement was here... incase program breaks*/
-           $students[] = $result; /*add remaining students to array*/
-        
-    }
-
-    fclose($file);
-
-    #update student information
-    $student[0] = $data['id'];
-    $student[1] = $data['fname'];
-    $student[2] = $data['lname'];
-    $student[3] = $data['email'];
-    $student[4] = $data['address'];
-    $student[5] = $data['year'];
-
-    #add updated student to the other students
-    $students[] = $student;
-    
-    #sort array
-    asort($students);
-
-    $file = fopen('students.csv', 'w');
-
-    foreach($students as $s)
-    {
-        
-        fputcsv($file, $s);
-    }
-
-    fclose($file);
-
-    
+    $result = mysqli_query($connection, $sql);
+  
+    mysqli_close($connection);
+      
 }
 
 ?>

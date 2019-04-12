@@ -1,44 +1,74 @@
-<?php
- 
- require_once('./login.php');
- require_once('./Authenticate.php');
+    <?php
 
- $obj = new Authenticate();
+    require_once('./login.php');
+    require_once('./Authenticate.php');
 
- if(!isset($_SESSION))
- {
-     session_start();
- }
+    $obj = new Authenticate();
 
- #determine if user is logged in
- if(! $obj -> isUserLoggedIn())
-{
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
+
+    #determine if user is logged in
+    if(! $obj -> isUserLoggedIn())
+    {
     header("Location: index.php");
-}
+    }
 
-/*user is logged in. Retrieve session variables*/
-$userEmail = $obj -> getUserInfo('em');
-$userPassword = $obj -> getUserInfo('pass');
-$fname = $obj -> getUserInfo('fname');
-$lname = $obj -> getUserInfo('lname');
-$role = $obj -> getUserInfo('role');
-$time = $obj -> getUserInfo('time');
+    /*user is logged in. Retrieve session variables*/
+    $userEmail = $obj -> getUserInfo('em');
+    $userPassword = $obj -> getUserInfo('pass');
+    $fname = $obj -> getUserInfo('fname');
+    $lname = $obj -> getUserInfo('lname');
+    $role = $obj -> getUserInfo('role');
+    $time = $obj -> getUserInfo('time');
 
-#array to store the courses
-//$courses = array();
+    require_once('./config.php');
 
- #ope courses csv file & read data
- /*$file = fopen("courses.csv","r");
+    $connection = mysqli_connect(HOST, USER, PASSWORD, DATABASE);
 
-  while(!feof($file))
-  {
-     $record = fgetcsv($file, ','); 
-     $courses[] = $record;
-  }*/
-?>
+    if(mysqli_connect_errno())
+    {
+    print('Error connection from courses.php');
+    }
 
-<!DOCTYPE html>
-<html lang = "en-us">
+    else
+    {
+        //connection established
+        $sql = "SELECT * FROM courses";
+
+        $result = mysqli_query($connection, $sql);
+
+            if (mysqli_num_rows($result) > 0) 
+            {
+                    //record found
+
+                    $courses = array();
+                    //$temp = array();
+
+                    while($row = mysqli_fetch_assoc($result)) 
+                    {
+                        //$string = $row['courseCode']." ".$row['courseName'];
+                        $temp = array (
+                        "code" => $row['courseCode'],
+                            "name" => $row['courseName']
+                        );
+
+                        $courses[] = $temp; 
+                    }
+            } 
+            else 
+            {
+                    //record not found
+                    print('Record not found');
+            }
+        
+        }
+    ?>
+
+    <!DOCTYPE html>
+    <html lang = "en-us">
     <head >
         <meta charset = "utf-8">
         <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
@@ -53,8 +83,8 @@ $time = $obj -> getUserInfo('time');
                 <h3>Programme: M.Sc Information Technology</h3>   
             </div>
 
-             <!--Hamburger Menu -->
-             <div class = "col-2"> 
+                <!--Hamburger Menu -->
+                <div class = "col-2"> 
                 <div class = "nav">
                     <label id = "label" for = "toggle">&#9776;</label>
                     <input type = "checkbox" id = "toggle">
@@ -99,24 +129,24 @@ $time = $obj -> getUserInfo('time');
         <!--table to display student information-->
         <table id = "table">
             <tr>
-               <td class = "table-item"> </td>
-               <td class = "table-item"> </td>
-               <td class = "table-header"> Course ID</td>
-               <td class = "table-header"> Course Title </td>
+                <td class = "table-item"> </td>
+                <td class = "table-item"> </td>
+                <td class = "table-header"> Course ID</td>
+                <td class = "table-header"> Course Title </td>
             </tr> 
             <tr> </tr>
             <?php foreach($courses as $index => $course):?>    
             <tr>
-              <td class = "table-item"> <a href ="#"> Edit </td>
-              <td class = "table-item"> <a href = "#"> Delete </td>
-              <td class = "table-item"> <?php print($course[0]) ?> </td>
-              <td class = "table-item"> <?php print($course[1]) ?> </td>
+                <td class = "table-item"> <a href ="#"> Edit </td>
+                <td class = "table-item"> <a href = "#"> Delete </td>
+                <td class = "table-item"> <?php print($course['code']) ?> </td>
+                <td class = "table-item"> <?php print($course['name']) ?> </td>
             </tr>
             <?php endforeach ?>    
         </table>
         
-         </main>
+            </main>
 
     </body>
 
-</html>
+    </html>

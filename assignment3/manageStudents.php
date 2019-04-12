@@ -2,6 +2,8 @@
 
 require_once('./validate.php');
 
+$vobj = new Validate();
+
  if($_SERVER['REQUEST_METHOD'] =='POST' && isset($_POST['add']))
  {
     
@@ -13,11 +15,11 @@ require_once('./validate.php');
     $year = $_POST['year'];
 
     #validate form data
-    $id_v = isIdValid($id);
-    $fname_v = isNameValid($fname);
-    $lname_v = isNameValid($lname);
-    $email_v = isEmailValid($email);
-    $add_v = isAddressValid($address);
+    $id_v = $vobj -> isIdValid($id);
+    $fname_v = $vobj -> isNameValid($fname);
+    $lname_v = $vobj -> isNameValid($lname);
+    $email_v = $vobj -> isEmailValid($email);
+    $add_v = $vobj -> isAddressValid($address);
 
     if($id_v == true && $fname_v == true && $lname_v == true && $email_v == true & $add_v == true)
     {
@@ -86,32 +88,40 @@ require_once('./validate.php');
  function generateId($y)
  {
      $gid = array();
+     $year = $y;
 
-     #get student year to generate ID
-     $sub = substr($y, 2, 2);
-     
-     #open csv file & get record from the file for the year
-     $file = fopen('students.csv', 'r');
-     while(!feof($file))
+     require_once('./config.php');
+
+     $connection = mysqli_connect(HOST, USER, PASSWORD, DATABASE);
+
+     $sql = "SELECT * FROM students WHERE year = '$year'";
+
+     $result = mysqli_query($connection, $sql);
+
+     if (mysqli_num_rows($result) > 0)
      {
-         $record = fgetcsv($file, 'r');
+        while($row = mysqli_fetch_assoc($result)) 
+        {
+            $id = $row['id'];
+            
+            $temp = array('id' => $id);
+            $gid[] = $temp;
+        }
 
-         if(substr($record[0], 1, 2) == $sub)
-         {
-              $gid[] = $record[0];
-         }
+        //get last item
+        $last = $gid[count($gid) -1]['id'];
+
+        $id = $last + 1;
+        return $id;  
      }
-     fclose($file);
+     else 
+        {
+                //generate new id
+                $sub = substr($year, 2, 2);
 
-   
-     if(empty($gid))
-     {
-         $id = '4'.$sub.'000000';
-         return $id;
-     }
-
-     return $gid[count($gid) - 1] + 1;
-         
+                $id = '4'.$sub.'000000';
+                return $id;
+        }    
  }
 
  
@@ -120,22 +130,26 @@ require_once('./validate.php');
  {
      #get action. Edit /Delete
      $action = $_GET['action'];
-     $record;
 
-    #open csv file & get record from the file
-     $file = fopen('students.csv', 'r');
+     require_once('./config.php');
 
-     while(!feof($file))
-     {
-         $record = fgetcsv($file, 'r');
-        
-         if($record[0] == $_GET['id'])
-         {
-              break;
-         }
-     }
+     $connection = mysqli_connect(HOST, USER, PASSWORD, DATABASE);
 
-     fclose($file);
+     $id = $_GET['id'];
+
+     $sql = "SELECT * FROM students WHERE id = '$id'";
+
+     $result = mysqli_query($connection, $sql);
+
+      while($row = mysqli_fetch_assoc($result)) 
+        {
+            $id = $row['id'];
+            $fname = $row['firstname'];
+            $lname = $row['lastname'];
+            $email = $row['email'];
+            $address = $row['address'];
+            $year = $row['year'];
+        }
 
      #action = edit
      if($action == "edit")
@@ -151,56 +165,35 @@ require_once('./validate.php');
          $edit = false;
      }
 
-     #get student information
-     $id = $record[0];
-     $fname = $record[1];
-     $lname = $record[2];
-     $email = $record[3];
-     $address = $record[4];
-     $year = $record[5];
-
      require_once('./newStudent.php');
  }
 
  #new Student
  function newStudent(array $data)
  {
-       #open csv file & get record from the file
-       $file = fopen('students.csv', 'r');
-
-       $record;
-
-       while(!feof($file))
-       {
-           $record = fgetcsv($file, ',');
-
-           $students[] = $record;
-       }
-   
-       fclose($file);
-
        #generate student ID
        $year = $data[5];
        $id = generateId($year);
-      
-       #set student id
-       $data[0] = $id;
+    
+       $data[0]= $id;
 
-       #add new student to existing list of students
-       $students[] = $data;
+    require_once('./config.php');
 
-       #sort the array
-      asort($students);
+     $connection = mysqli_connect(HOST, USER, PASSWORD, DATABASE);
 
-       $file = fopen('students.csv', 'w');
+     $id = $data[0];
+     $firstname = $data[1];
+     $lastname = $data[2];
+     $email = $data[3];
+     $address = $data[4];
+     $year = $data[5];
+
    
-       foreach($students as $s)
-       {
-           
-           fputcsv($file, $s);
-       }
-   
-       fclose($file);
+     $sql = "INSERT INTO students VALUES
+      ('$id', '$firstname', '$lastname', '$email', '$address', '$year' )";
+
+
+     $result = mysqli_query($connection, $sql);
  }
   
  

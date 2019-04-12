@@ -4,6 +4,10 @@
  <?php
 require_once('./login.php');
 require_once('./manageStudents.php');
+require_once('./Authenticate.php');
+   
+$obj = new Authenticate();
+
 
 if(!isset($_SESSION))
 {
@@ -11,7 +15,7 @@ if(!isset($_SESSION))
 }
 
 #determine if user is logged in
-if(!isUserLoggedIn())
+if(! $obj -> isUserLoggedIn())
 {
  header("Location: index.php");
 }
